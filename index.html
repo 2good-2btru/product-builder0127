@@ -1,14 +1,41 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World</title>
-  <link href='/style.css' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBTI Psychological Test</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Hello, world!</h1>
-  <button onclick="console.log('hello');">Press me</button>
-  <script defer type="text/javascript" src="/main.js"></script>
+    <div class="container">
+        <!-- Start Screen -->
+        <div id="start-screen" class="screen active">
+            <h1>MBTI Psychological Test</h1>
+            <p>Discover your personality type by answering a few simple questions.</p>
+            <button id="start-btn">Start Test</button>
+        </div>
+
+        <!-- Question Screen -->
+        <div id="question-screen" class="screen">
+            <div class="progress-bar">
+                <div id="progress" class="progress"></div>
+            </div>
+            <h2 id="question-text"></h2>
+            <div id="answers-container" class="answers-container">
+                <button class="answer-btn" id="answer-a"></button>
+                <button class="answer-btn" id="answer-b"></button>
+            </div>
+        </div>
+
+        <!-- Result Screen -->
+        <div id="result-screen" class="screen">
+            <h1>Your Personality Type is:</h1>
+            <h2 id="result-type"></h2>
+            <p id="result-description"></p>
+            <button id="restart-btn">Restart Test</button>
+        </div>
+    </div>
+    <script src="main.js"></script>
 </body>
 </html>
