@@ -1,5 +1,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
+    const themeButtons = document.querySelectorAll('.theme-toggle');
+    const themeLabels = document.querySelectorAll('[data-theme-label]');
     const startScreen = document.getElementById('start-screen');
     const questionScreen = document.getElementById('question-screen');
     const resultScreen = document.getElementById('result-screen');
@@ -47,6 +49,26 @@ document.addEventListener('DOMContentLoaded', () => {
         ENFJ: "The Protagonist: Charismatic and inspiring leaders, able to mesmerize their listeners.",
         ENTJ: "The Commander: Bold, imaginative and strong-willed leaders, always finding a way - or making one.",
     };
+
+    function applyTheme(theme) {
+        if (theme === 'dark') {
+            document.body.dataset.theme = 'dark';
+        } else {
+            delete document.body.dataset.theme;
+        }
+        const nextLabel = theme === 'dark' ? 'Light' : 'Dark';
+        themeLabels.forEach(label => {
+            label.textContent = nextLabel;
+        });
+    }
+
+    function getInitialTheme() {
+        const saved = localStorage.getItem('theme');
+        if (saved === 'dark' || saved === 'light') {
+            return saved;
+        }
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
 
     function startTest() {
         currentQuestionIndex = 0;
@@ -104,7 +126,16 @@ document.addEventListener('DOMContentLoaded', () => {
     restartBtn.addEventListener('click', () => showScreen('start-screen'));
     answerA.addEventListener('click', (e) => handleAnswer(e.target.dataset.type));
     answerB.addEventListener('click', (e) => handleAnswer(e.target.dataset.type));
+    themeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const isDark = document.body.dataset.theme === 'dark';
+            const nextTheme = isDark ? 'light' : 'dark';
+            localStorage.setItem('theme', nextTheme);
+            applyTheme(nextTheme);
+        });
+    });
 
     // Initial state
+    applyTheme(getInitialTheme());
     showScreen('start-screen');
 });

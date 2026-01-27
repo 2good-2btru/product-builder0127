@@ -11,6 +11,11 @@
     <div class="container">
         <!-- Start Screen -->
         <div id="start-screen" class="screen active">
+            <div class="top-bar">
+                <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">
+                    <span class="theme-label" data-theme-label>Dark</span>
+                </button>
+            </div>
             <h1>MBTI Psychological Test</h1>
             <p>Discover your personality type by answering a few simple questions.</p>
             <button id="start-btn">Start Test</button>
@@ -18,6 +23,11 @@
 
         <!-- Question Screen -->
         <div id="question-screen" class="screen">
+            <div class="top-bar">
+                <button id="theme-toggle-2" class="theme-toggle" type="button" aria-label="Toggle theme">
+                    <span class="theme-label" data-theme-label>Dark</span>
+                </button>
+            </div>
             <div class="progress-bar">
                 <div id="progress" class="progress"></div>
             </div>
@@ -30,6 +40,11 @@
 
         <!-- Result Screen -->
         <div id="result-screen" class="screen">
+            <div class="top-bar">
+                <button id="theme-toggle-3" class="theme-toggle" type="button" aria-label="Toggle theme">
+                    <span class="theme-label" data-theme-label>Dark</span>
+                </button>
+            </div>
             <h1>Your Personality Type is:</h1>
             <h2 id="result-type"></h2>
             <p id="result-description"></p>
