@@ -17,6 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const resultType = document.getElementById('result-type');
     const resultDescription = document.getElementById('result-description');
+    const partnerForm = document.getElementById('partner-form');
+    const partnerStatus = document.getElementById('partner-status');
+    const partnerSection = document.querySelector('.partner-section');
 
     let currentQuestionIndex = 0;
     let scores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
@@ -117,6 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resultType.textContent = finalType;
         resultDescription.textContent = personalityTypes[finalType] || "설명이 준비되지 않았어.";
         showScreen('result-screen');
+        scrollToElement(resultScreen);
     }
 
     function showScreen(screenId) {
@@ -124,6 +128,13 @@ document.addEventListener('DOMContentLoaded', () => {
             screen.classList.remove('active');
         });
         document.getElementById(screenId).classList.add('active');
+    }
+
+    function scrollToElement(element) {
+        if (!element) {
+            return;
+        }
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     startBtn.addEventListener('click', startTest);
@@ -136,6 +147,45 @@ document.addEventListener('DOMContentLoaded', () => {
             const nextTheme = isDark ? 'light' : 'dark';
             localStorage.setItem('theme', nextTheme);
             applyTheme(nextTheme);
+        });
+    }
+
+    if (partnerForm && partnerStatus) {
+        const submitButton = partnerForm.querySelector('button[type="submit"]');
+
+        partnerForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            partnerStatus.textContent = '전송 중...';
+            partnerStatus.className = 'form-status';
+            if (submitButton) {
+                submitButton.disabled = true;
+            }
+
+            try {
+                const formData = new FormData(partnerForm);
+                const response = await fetch(partnerForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: { Accept: 'application/json' }
+                });
+
+                if (response.ok) {
+                    partnerStatus.textContent = '문의가 정상적으로 접수되었습니다. 빠르게 회신드릴게요.';
+                    partnerStatus.classList.add('success');
+                    partnerForm.reset();
+                    scrollToElement(partnerSection);
+                } else {
+                    partnerStatus.textContent = '전송에 실패했어요. 잠시 후 다시 시도해주세요.';
+                    partnerStatus.classList.add('error');
+                }
+            } catch (error) {
+                partnerStatus.textContent = '네트워크 오류가 발생했어요. 연결을 확인해주세요.';
+                partnerStatus.classList.add('error');
+            } finally {
+                if (submitButton) {
+                    submitButton.disabled = false;
+                }
+            }
         });
     }
 

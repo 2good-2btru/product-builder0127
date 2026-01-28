@@ -42,6 +42,35 @@
             </div>
             <button id="restart-btn">다시하기</button>
         </div>
+
+        <section class="partner-section" aria-labelledby="partner-title">
+            <div class="partner-card">
+                <div class="partner-badge">Partnership</div>
+                <h2 id="partner-title">제휴 문의</h2>
+                <p class="partner-subtitle">브랜드/콘텐츠/프로모션 협업을 제안해 주세요.</p>
+                <form id="partner-form" class="partner-form" action="https://formspree.io/f/xbdoeedn" method="POST">
+                    <input type="hidden" name="_subject" value="MBTI 사이트 제휴 문의">
+                    <label class="form-field">
+                        <span>담당자명</span>
+                        <input type="text" name="name" placeholder="홍길동" required>
+                    </label>
+                    <label class="form-field">
+                        <span>이메일</span>
+                        <input type="email" name="email" placeholder="you@company.com" required>
+                    </label>
+                    <label class="form-field">
+                        <span>회사/브랜드</span>
+                        <input type="text" name="company" placeholder="회사명" required>
+                    </label>
+                    <label class="form-field">
+                        <span>문의 내용</span>
+                        <textarea name="message" rows="5" placeholder="제휴 목적, 기대 효과, 일정 등을 알려주세요." required></textarea>
+                    </label>
+                    <button class="partner-submit" type="submit">제휴 문의 보내기</button>
+                    <p id="partner-status" class="form-status" role="status" aria-live="polite"></p>
+                </form>
+            </div>
+        </section>
     </div>
     <script src="main.js"></script>
 </body>
